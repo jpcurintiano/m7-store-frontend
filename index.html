@@ -2,65 +2,179 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>M7 Store</title>
+
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background: #0a0a0a;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0a0a0a, #111);
   color: white;
-  font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 400px;
   text-align: center;
 }
+
+/* Logo */
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #00ff88;
+}
+
+/* Card */
 .card {
-  margin-top: 100px;
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0,255,136,0.2);
+  animation: fadeIn 1s ease;
 }
-button {
-  padding: 15px;
-  background: #00ff88;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
+
+/* Título */
+h2 {
+  margin-bottom: 10px;
 }
+
+/* Preço */
+.price {
+  font-size: 24px;
+  color: #00ff88;
+  margin-bottom: 20px;
+}
+
+/* Input */
 input {
-  padding: 10px;
-  margin: 10px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+  outline: none;
 }
-img {
+
+/* Botão */
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #00ff88;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00cc6a;
+}
+
+/* Pix */
+.pix {
   margin-top: 20px;
+}
+
+/* QR */
+.pix img {
+  width: 200px;
+  margin-top: 10px;
+}
+
+/* Código */
+.code {
+  font-size: 12px;
+  word-break: break-all;
+  margin-top: 10px;
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 </head>
+
 <body>
 
-<h1>M7 Store</h1>
+<div class="container">
 
-<div class="card">
-  <h2>Pacote Streaming</h2>
-  <p>R$29,90</p>
+  <div class="logo">M7 Store</div>
 
-  <input type="email" id="email" placeholder="Seu email">
-  <br>
+  <div class="card">
+    <h2>Pacote Streaming</h2>
+    <div class="price">R$ 29,90</div>
 
-  <button onclick="comprar()">Comprar</button>
+    <input type="email" id="email" placeholder="Digite seu email">
 
-  <div id="pix"></div>
+    <button onclick="comprar()">Comprar</button>
+
+    <div id="pix" class="pix"></div>
+  </div>
+
 </div>
 
 <script>
-async function comprar(){
+async function comprar() {
   const email = document.getElementById("email").value;
 
-  const res = await fetch("https://m7-store-api.onrender.com/create-payment", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ email })
-  });
+  if (!email) {
+    alert("Digite um email válido");
+    return;
+  }
 
-  const data = await res.json();
+  const pixDiv = document.getElementById("pix");
+  pixDiv.innerHTML = "Gerando pagamento...";
 
-  document.getElementById("pix").innerHTML =
-    `<h3>Pague com Pix</h3>
-     <img src="data:image/png;base64,${data.qr_base64}" />
-     <p>${data.qr_code}</p>`;
+  try {
+    const res = await fetch("https://m7-store-api.onrender.com/create-payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+      pixDiv.innerHTML = "Erro ao gerar pagamento";
+      console.log(data);
+      return;
+    }
+
+    pixDiv.innerHTML = `
+      <h3>Pague com Pix</h3>
+      <img src="data:image/png;base64,${data.qr_base64}" />
+      <div class="code">${data.qr_code}</div>
+    `;
+
+  } catch (err) {
+    pixDiv.innerHTML = "Erro na conexão";
+    console.log(err);
+  }
 }
 </script>
 
