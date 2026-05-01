@@ -21,7 +21,8 @@ html, body {
 body {
   min-height: 100dvh;
   background:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.58)),
+    radial-gradient(circle at center, rgba(212,175,55,0.22), rgba(0,0,0,0.3) 38%, rgba(0,0,0,0.78) 100%),
+    linear-gradient(rgba(0,0,0,0.38), rgba(0,0,0,0.62)),
     url("fundo.png");
   background-size: cover;
   background-position: center;
@@ -33,48 +34,77 @@ body {
   overflow-x: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255,215,0,0.12), transparent);
+  animation: luzFundo 5s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes luzFundo {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
 .container {
-  width: min(92vw, 390px);
+  width: min(92vw, 420px);
   max-height: 96dvh;
   overflow-y: auto;
-  background: rgba(0,0,0,0.52);
-  border: 1px solid rgba(212,175,55,0.55);
-  border-radius: 22px;
-  padding: clamp(18px, 4vw, 24px);
+  background: rgba(0,0,0,0.56);
+  border: 1px solid rgba(255,215,0,0.65);
+  border-radius: 26px;
+  padding: clamp(18px, 4vw, 26px);
   text-align: center;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 28px rgba(212,175,55,0.22);
-  animation: subir 0.6s ease;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 22px rgba(212,175,55,0.28),
+    inset 0 0 18px rgba(255,255,255,0.04);
+  animation: subir 0.7s ease;
+  position: relative;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.75), transparent, rgba(255,255,255,0.35), transparent);
+  z-index: -1;
+  opacity: 0.35;
 }
 
 @keyframes subir {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(22px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .logo {
-  width: clamp(82px, 25vw, 112px);
+  width: clamp(88px, 24vw, 118px);
   margin-bottom: 10px;
-  filter: drop-shadow(0 0 14px rgba(255,215,0,0.85));
-  animation: brilho 2s infinite alternate;
+  filter: drop-shadow(0 0 18px rgba(255,215,0,0.95));
+  animation: brilhoLogo 2.2s infinite alternate;
 }
 
-@keyframes brilho {
+@keyframes brilhoLogo {
   from { transform: scale(1); }
-  to { transform: scale(1.04); }
+  to { transform: scale(1.05); }
 }
 
 h1 {
-  font-size: clamp(26px, 7vw, 30px);
-  color: #d4af37;
+  font-size: clamp(28px, 7vw, 34px);
+  color: #ffd84d;
   letter-spacing: 2px;
   margin-bottom: 8px;
+  text-shadow: 0 0 15px rgba(212,175,55,0.8);
 }
 
 .subtitulo {
-  font-size: clamp(14px, 3.7vw, 15.5px);
+  font-size: clamp(14px, 3.7vw, 16px);
   line-height: 1.45;
   margin-bottom: 12px;
+  color: #f4f4f4;
 }
 
 .subtitulo strong {
@@ -82,58 +112,97 @@ h1 {
 }
 
 .preco {
-  font-size: clamp(34px, 10vw, 42px);
+  font-size: clamp(38px, 11vw, 48px);
   font-weight: 900;
   color: #fff;
-  margin: 10px 0 14px;
-  text-shadow: 0 0 14px rgba(212,175,55,0.8);
+  margin: 10px 0 16px;
+  text-shadow: 0 0 18px rgba(212,175,55,0.95);
 }
 
 .preco span {
-  color: #d4af37;
+  color: #ffd84d;
 }
 
 .lista {
-  font-size: clamp(13px, 3.4vw, 14px);
-  line-height: 1.6;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.14);
-  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+  margin-bottom: 14px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.16);
   border-radius: 13px;
-  margin-bottom: 12px;
+  padding: 10px;
+  transition: 0.25s ease;
+}
+
+.item:hover {
+  transform: translateY(-2px) scale(1.03);
+  border-color: rgba(255,215,0,0.9);
+  box-shadow: 0 0 16px rgba(212,175,55,0.35);
+}
+
+.item img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.25));
+}
+
+.item span {
+  font-size: 14px;
+  font-weight: 900;
+  color: #fff;
+  text-align: left;
 }
 
 input {
   width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(212,175,55,0.8);
-  background: rgba(0,0,0,0.68);
+  padding: 15px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,215,0,0.85);
+  background: rgba(0,0,0,0.72);
   color: #fff;
   font-size: 16px;
   outline: none;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
 
 input::placeholder {
   color: #cfcfcf;
 }
 
+input:focus {
+  border-color: #fff3b0;
+  box-shadow: 0 0 15px rgba(212,175,55,0.45);
+}
+
 .btn {
   width: 100%;
   margin-top: 13px;
-  padding: 15px;
+  padding: 16px;
   border: none;
-  border-radius: 13px;
+  border-radius: 14px;
   cursor: pointer;
   font-weight: 900;
-  font-size: clamp(15px, 4vw, 16px);
-  letter-spacing: 1.2px;
-  background: linear-gradient(135deg, #d4af37, #fff3b0, #d4af37);
+  font-size: clamp(15px, 4vw, 17px);
+  letter-spacing: 1.3px;
+  background: linear-gradient(135deg, #bf8f16, #fff3b0, #d4af37);
   color: #111;
   position: relative;
   overflow: hidden;
   transition: 0.25s ease;
-  box-shadow: 0 0 20px rgba(212,175,55,0.45);
+  box-shadow: 0 0 22px rgba(212,175,55,0.6);
+}
+
+.btn:hover {
+  transform: scale(1.035);
+  box-shadow: 0 0 34px rgba(255,215,0,0.8);
 }
 
 .btn:active {
@@ -147,9 +216,9 @@ input::placeholder {
   left: -110%;
   width: 60%;
   height: 100%;
-  background: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.55);
   transform: skewX(-25deg);
-  animation: brilhoBtn 2.2s infinite;
+  animation: brilhoBtn 2.1s infinite;
 }
 
 @keyframes brilhoBtn {
@@ -165,20 +234,20 @@ input::placeholder {
 
 .erro {
   color: #ff6b6b;
-  font-weight: bold;
+  font-weight: 900;
 }
 
 .sucesso {
   color: #ffd966;
-  font-weight: bold;
+  font-weight: 900;
 }
 
 #qr img {
-  width: min(210px, 70vw);
+  width: min(215px, 70vw);
   margin-top: 14px;
   background: white;
-  padding: 8px;
-  border-radius: 12px;
+  padding: 9px;
+  border-radius: 14px;
 }
 
 textarea {
@@ -186,7 +255,7 @@ textarea {
   height: 105px;
   margin-top: 10px;
   padding: 10px;
-  border-radius: 11px;
+  border-radius: 12px;
   border: 1px solid #d4af37;
   resize: none;
   font-size: 12px;
@@ -195,24 +264,25 @@ textarea {
 
 @media (max-width: 430px) {
   body {
-    align-items: center;
-    background-position: center center;
+    background-position: center;
   }
 
   .container {
-    width: min(94vw, 380px);
-    border-radius: 20px;
+    width: min(94vw, 390px);
+    border-radius: 22px;
   }
 
   .lista {
-    padding: 10px;
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
-}
 
-@media (min-width: 900px) {
-  .container:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 38px rgba(212,175,55,0.3);
+  .item {
+    padding: 11px 12px;
+  }
+
+  .item span {
+    font-size: 15px;
   }
 }
 </style>
@@ -226,14 +296,22 @@ textarea {
 
     <p class="subtitulo">
       Compre o <strong>pacote de streaming</strong> por apenas
-      <strong>R$29,90</strong>, com todos os streaming abaixo.
+      <strong>R$29,90</strong>, com todos os streamings abaixo.
     </p>
 
     <div class="preco"><span>R$</span>29,90</div>
 
     <div class="lista">
-      Netflix • HBO Max • Disney+ • Prime Video • Paramount+<br />
-      Globoplay • Premiere • Sportv • ESPN
+      <div class="item"><img src="logos/netflix.png" alt="Netflix"><span>Netflix</span></div>
+      <div class="item"><img src="logos/hbo.png" alt="HBO Max"><span>HBO Max</span></div>
+      <div class="item"><img src="logos/disney.png" alt="Disney+"><span>Disney+</span></div>
+      <div class="item"><img src="logos/prime.png" alt="Prime Video"><span>Prime Video</span></div>
+      <div class="item"><img src="logos/paramount.png" alt="Paramount+"><span>Paramount+</span></div>
+      <div class="item"><img src="logos/globo.png" alt="Globoplay"><span>Globoplay</span></div>
+      <div class="item"><img src="logos/premiere.png" alt="Premiere"><span>Premiere</span></div>
+      <div class="item"><img src="logos/sporttv.png" alt="SporTV"><span>SporTV</span></div>
+      <div class="item"><img src="logos/espn.png" alt="ESPN"><span>ESPN</span></div>
+      <div class="item"><img src="logos/appletv.png" alt="Apple TV+"><span>Apple TV+</span></div>
     </div>
 
     <input id="email" type="email" placeholder="Digite seu e-mail" />
@@ -251,6 +329,7 @@ async function gerarPix() {
   const email = document.getElementById("email").value.trim();
   const msg = document.getElementById("mensagem");
   const qr = document.getElementById("qr");
+  const botao = document.querySelector(".btn");
 
   msg.innerHTML = "";
   qr.innerHTML = "";
@@ -260,7 +339,9 @@ async function gerarPix() {
     return;
   }
 
-  msg.innerHTML = '<p class="sucesso">Gerando Pix...</p>';
+  botao.disabled = true;
+  botao.innerText = "GERANDO PIX...";
+  msg.innerHTML = '<p class="sucesso">Aguarde, estamos gerando seu Pix...</p>';
 
   try {
     const res = await fetch(`${API_URL}/create-payment`, {
@@ -273,6 +354,8 @@ async function gerarPix() {
 
     if (!res.ok) {
       msg.innerHTML = '<p class="erro">Erro ao gerar pagamento.</p>';
+      botao.disabled = false;
+      botao.innerText = "COMPRAR AGORA";
       return;
     }
 
@@ -285,6 +368,8 @@ async function gerarPix() {
     `;
   } catch {
     msg.innerHTML = '<p class="erro">Erro na conexão com a API.</p>';
+    botao.disabled = false;
+    botao.innerText = "COMPRAR AGORA";
   }
 }
 
