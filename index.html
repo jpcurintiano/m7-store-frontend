@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>M7 STORE</title>
 
 <style>
@@ -11,246 +10,281 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)),
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.58)),
     url("fundo.png");
   background-size: cover;
   background-position: center;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  background-repeat: no-repeat;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  padding: clamp(14px, 3vw, 28px);
+  overflow-x: hidden;
 }
 
-/* 🔥 CARD PRINCIPAL (AJUSTADO) */
 .container {
-  width: 100%;
-  max-width: 380px;
-  background: rgba(0,0,0,0.55);
-  border: 1px solid rgba(212,175,55,0.5);
+  width: min(92vw, 390px);
+  max-height: 96dvh;
+  overflow-y: auto;
+  background: rgba(0,0,0,0.52);
+  border: 1px solid rgba(212,175,55,0.55);
   border-radius: 22px;
-  padding: 22px;
+  padding: clamp(18px, 4vw, 24px);
   text-align: center;
   backdrop-filter: blur(6px);
-  box-shadow: 0 0 25px rgba(212,175,55,0.2);
+  box-shadow: 0 0 28px rgba(212,175,55,0.22);
   animation: subir 0.6s ease;
 }
 
 @keyframes subir {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .logo {
-  width: 110px;
+  width: clamp(82px, 25vw, 112px);
   margin-bottom: 10px;
-  filter: drop-shadow(0 0 15px gold);
+  filter: drop-shadow(0 0 14px rgba(255,215,0,0.85));
   animation: brilho 2s infinite alternate;
 }
 
 @keyframes brilho {
   from { transform: scale(1); }
-  to { transform: scale(1.05); }
+  to { transform: scale(1.04); }
 }
 
 h1 {
-  font-size: 28px;
+  font-size: clamp(26px, 7vw, 30px);
   color: #d4af37;
-  margin-bottom: 6px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
 }
 
 .subtitulo {
-  font-size: 15px;
+  font-size: clamp(14px, 3.7vw, 15.5px);
+  line-height: 1.45;
   margin-bottom: 12px;
 }
 
 .subtitulo strong {
-  color: gold;
+  color: #ffd966;
 }
 
 .preco {
-  font-size: 34px;
-  font-weight: bold;
-  color: gold;
-  margin: 10px 0;
+  font-size: clamp(34px, 10vw, 42px);
+  font-weight: 900;
+  color: #fff;
+  margin: 10px 0 14px;
+  text-shadow: 0 0 14px rgba(212,175,55,0.8);
+}
+
+.preco span {
+  color: #d4af37;
 }
 
 .lista {
-  font-size: 14px;
+  font-size: clamp(13px, 3.4vw, 14px);
+  line-height: 1.6;
   background: rgba(255,255,255,0.08);
-  padding: 10px;
-  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 12px;
+  border-radius: 13px;
   margin-bottom: 12px;
 }
 
-/* INPUT */
 input {
   width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid gold;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  margin-top: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(212,175,55,0.8);
+  background: rgba(0,0,0,0.68);
+  color: #fff;
+  font-size: 16px;
+  outline: none;
 }
 
-/* BOTÃO ANIMADO */
+input::placeholder {
+  color: #cfcfcf;
+}
+
 .btn {
   width: 100%;
-  margin-top: 12px;
-  padding: 13px;
+  margin-top: 13px;
+  padding: 15px;
   border: none;
-  border-radius: 12px;
+  border-radius: 13px;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  background: linear-gradient(135deg, #d4af37, #fff3b0);
+  font-weight: 900;
+  font-size: clamp(15px, 4vw, 16px);
+  letter-spacing: 1.2px;
+  background: linear-gradient(135deg, #d4af37, #fff3b0, #d4af37);
   color: #111;
   position: relative;
   overflow: hidden;
-  transition: 0.3s;
-  animation: pulse 1.5s infinite;
+  transition: 0.25s ease;
+  box-shadow: 0 0 20px rgba(212,175,55,0.45);
 }
 
-.btn:hover {
-  transform: scale(1.05);
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-  100% { transform: scale(1); }
+.btn:active {
+  transform: scale(0.98);
 }
 
 .btn::before {
   content: "";
   position: absolute;
   top: 0;
-  left: -100%;
+  left: -110%;
   width: 60%;
   height: 100%;
-  background: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.45);
   transform: skewX(-25deg);
-  animation: brilhoBtn 2s infinite;
+  animation: brilhoBtn 2.2s infinite;
 }
 
 @keyframes brilhoBtn {
-  0% { left: -100%; }
+  0% { left: -110%; }
   60% { left: 130%; }
   100% { left: 130%; }
 }
 
 #mensagem {
-  margin-top: 10px;
+  margin-top: 12px;
+  font-size: 14px;
 }
 
-.erro { color: red; }
-.sucesso { color: gold; }
+.erro {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.sucesso {
+  color: #ffd966;
+  font-weight: bold;
+}
 
 #qr img {
-  width: 200px;
-  margin-top: 15px;
+  width: min(210px, 70vw);
+  margin-top: 14px;
   background: white;
   padding: 8px;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 textarea {
   width: 100%;
+  height: 105px;
   margin-top: 10px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 11px;
+  border: 1px solid #d4af37;
+  resize: none;
+  font-size: 12px;
+  outline: none;
 }
 
-/* RESPONSIVO */
-@media (max-width: 480px) {
-  .container {
-    max-width: 95%;
+@media (max-width: 430px) {
+  body {
+    align-items: center;
+    background-position: center center;
   }
 
-  .logo {
-    width: 90px;
+  .container {
+    width: min(94vw, 380px);
+    border-radius: 20px;
+  }
+
+  .lista {
+    padding: 10px;
+  }
+}
+
+@media (min-width: 900px) {
+  .container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 38px rgba(212,175,55,0.3);
   }
 }
 </style>
 </head>
 
 <body>
+  <main class="container">
+    <img src="logo.png" class="logo" alt="M7 Store Logo" />
 
-<div class="container">
-  <img src="logo.png" class="logo">
+    <h1>M7 STORE</h1>
 
-  <h1>M7 STORE</h1>
+    <p class="subtitulo">
+      Compre o <strong>pacote de streaming</strong> por apenas
+      <strong>R$29,90</strong>, com todos os streaming abaixo.
+    </p>
 
-  <p class="subtitulo">
-    Compre o <strong>pacote de streaming</strong> por apenas 
-    <strong>R$29,90</strong>, com todos os streaming abaixo.
-  </p>
+    <div class="preco"><span>R$</span>29,90</div>
 
-  <div class="preco">R$29,90</div>
+    <div class="lista">
+      Netflix • HBO Max • Disney+ • Prime Video • Paramount+<br />
+      Globoplay • Premiere • Sportv • ESPN
+    </div>
 
-  <div class="lista">
-    Netflix • HBO Max • Disney+ • Prime Video • Paramount+ <br>
-    Globoplay • Premiere • Sportv • ESPN
-  </div>
+    <input id="email" type="email" placeholder="Digite seu e-mail" />
 
-  <input id="email" type="email" placeholder="Digite seu e-mail">
+    <button class="btn" onclick="gerarPix()">COMPRAR AGORA</button>
 
-  <button class="btn" onclick="gerarPix()">COMPRAR AGORA</button>
-
-  <div id="mensagem"></div>
-  <div id="qr"></div>
-</div>
+    <div id="mensagem"></div>
+    <div id="qr"></div>
+  </main>
 
 <script>
 const API_URL = "https://m7-store-api.onrender.com";
 
 async function gerarPix() {
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
   const msg = document.getElementById("mensagem");
   const qr = document.getElementById("qr");
 
   msg.innerHTML = "";
   qr.innerHTML = "";
 
-  if (!email.includes("@")) {
-    msg.innerHTML = '<p class="erro">Digite um e-mail válido</p>';
+  if (!email || !email.includes("@")) {
+    msg.innerHTML = '<p class="erro">Digite um e-mail válido.</p>';
     return;
   }
 
   msg.innerHTML = '<p class="sucesso">Gerando Pix...</p>';
 
   try {
-    const res = await fetch(API_URL + "/create-payment", {
+    const res = await fetch(`${API_URL}/create-payment`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email })
     });
 
     const data = await res.json();
 
     if (!res.ok) {
-      msg.innerHTML = '<p class="erro">Erro ao gerar pagamento</p>';
+      msg.innerHTML = '<p class="erro">Erro ao gerar pagamento.</p>';
       return;
     }
 
-    msg.innerHTML = '<p class="sucesso">Pix gerado!</p>';
+    msg.innerHTML = '<p class="sucesso">Pix gerado com sucesso!</p>';
 
     qr.innerHTML = `
-      <img src="data:image/png;base64,${data.qr_base64}">
-      <textarea id="pix">${data.qr_code}</textarea>
-      <button class="btn" onclick="copiar()">Copiar Pix</button>
+      <img src="data:image/png;base64,${data.qr_base64}" alt="QR Code Pix">
+      <textarea id="pix" readonly>${data.qr_code}</textarea>
+      <button class="btn" onclick="copiar()">COPIAR PIX</button>
     `;
   } catch {
-    msg.innerHTML = '<p class="erro">Erro na conexão</p>';
+    msg.innerHTML = '<p class="erro">Erro na conexão com a API.</p>';
   }
 }
 
@@ -260,6 +294,5 @@ function copiar() {
   alert("Pix copiado!");
 }
 </script>
-
 </body>
 </html>
