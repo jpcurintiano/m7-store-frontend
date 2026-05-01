@@ -13,379 +13,252 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-html, body {
-  width: 100%;
-  min-height: 100%;
-}
-
 body {
   min-height: 100dvh;
   background:
-    linear-gradient(rgba(0,0,0,0.48), rgba(0,0,0,0.64)),
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.7)),
     url("fundo.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  color: #fff;
   display: grid;
   place-items: center;
-  padding: 12px;
-  overflow-x: hidden;
+  padding: 10px;
+  color: #fff;
 }
 
+/* CONTAINER */
 .container {
-  width: min(94vw, 420px);
-  max-height: 96dvh;
-  overflow-y: auto;
-  background: rgba(0,0,0,0.68);
-  border: 1px solid rgba(255,215,0,0.65);
-  border-radius: 22px;
-  padding: 16px;
+  width: min(92vw, 360px);
+  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(255,215,0,0.6);
+  border-radius: 18px;
+  padding: 14px;
   text-align: center;
   backdrop-filter: blur(8px);
-  box-shadow: 0 0 34px rgba(212,175,55,0.35);
-  animation: subir 0.6s ease;
+  box-shadow: 0 0 25px rgba(212,175,55,0.35);
 }
 
-@keyframes subir {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* LOGO */
 .logo {
-  width: clamp(74px, 19vw, 100px);
-  margin-bottom: 8px;
-  filter: drop-shadow(0 0 16px rgba(255,215,0,0.9));
-  animation: brilhoLogo 2s infinite alternate;
-}
-
-@keyframes brilhoLogo {
-  from { transform: scale(1); }
-  to { transform: scale(1.04); }
-}
-
-h1 {
-  font-size: clamp(24px, 6vw, 30px);
-  color: #d4af37;
-  letter-spacing: 2px;
+  width: 75px;
   margin-bottom: 6px;
-  text-shadow: 0 0 12px rgba(212,175,55,0.6);
+  filter: drop-shadow(0 0 12px gold);
 }
 
-.subtitulo {
-  font-size: clamp(13px, 3.4vw, 15px);
-  line-height: 1.35;
-  margin-bottom: 9px;
+/* 🔥 ANIMAÇÃO DE TEXTO */
+@keyframes brilhoTexto {
+  0% { text-shadow: 0 0 5px #d4af37; }
+  50% { text-shadow: 0 0 15px #ffd966; }
+  100% { text-shadow: 0 0 5px #d4af37; }
 }
 
-.subtitulo strong {
-  color: #ffd966;
-}
-
-.preco {
-  font-size: clamp(34px, 9vw, 46px);
-  font-weight: 900;
-  color: #fff;
-  margin: 7px 0 10px;
-  text-shadow: 0 0 18px rgba(212,175,55,0.9);
-}
-
-.preco span {
+/* TITULO */
+h1 {
+  font-size: 24px;
   color: #d4af37;
+  margin-bottom: 4px;
+  animation: brilhoTexto 2s infinite;
 }
 
+/* SUB */
+.subtitulo {
+  font-size: 13px;
+  margin-bottom: 6px;
+  animation: brilhoTexto 3s infinite;
+}
+
+/* PREÇO */
+.preco {
+  font-size: 34px;
+  font-weight: 900;
+  margin: 6px 0 8px;
+  animation: brilhoTexto 1.5s infinite;
+}
+
+/* LISTA */
 .lista {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 7px;
-  margin-bottom: 9px;
+  grid-template-columns: repeat(2,1fr);
+  gap: 6px;
+  margin-bottom: 7px;
 }
 
 .streaming {
-  padding: 8px 6px;
-  border-radius: 10px;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 8px;
   background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(212,175,55,0.42);
-  color: #fff;
-  font-size: clamp(12px, 3vw, 13.5px);
-  font-weight: 800;
-  text-shadow: 0 0 8px rgba(0,0,0,0.9);
-  transition: 0.25s ease;
+  border: 1px solid rgba(212,175,55,0.4);
   cursor: pointer;
+  transition: 0.2s;
+  animation: brilhoTexto 3.5s infinite;
 }
 
 .streaming:hover {
-  transform: scale(1.06) translateY(-2px);
-  background: rgba(212,175,55,0.16);
-  border-color: #ffd966;
-  box-shadow: 0 0 16px rgba(212,175,55,0.72);
-  color: #ffd966;
+  transform: scale(1.05);
+  background: rgba(212,175,55,0.15);
+  box-shadow: 0 0 12px gold;
 }
 
-.streaming:last-child {
-  grid-column: span 2;
-}
-
+/* AVISO */
 .aviso-email {
-  margin: 9px 0 10px;
-  padding: 9px 10px;
-  border-radius: 12px;
-  background: rgba(0,0,0,0.72);
-  border: 1px solid rgba(255,215,0,0.45);
-  color: #fff;
-  font-size: clamp(11.5px, 3vw, 13px);
-  line-height: 1.35;
-  box-shadow: 0 0 14px rgba(212,175,55,0.18);
+  font-size: 11px;
+  padding: 7px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,215,0,0.4);
+  margin-bottom: 8px;
+  animation: brilhoTexto 4s infinite;
 }
 
-.aviso-email strong {
-  color: #ffd966;
-}
-
+/* AREA COMPRA */
 .area-compra {
   display: flex;
-  align-items: stretch;
-  gap: 8px;
-  width: 100%;
-  margin-top: 8px;
+  gap: 6px;
 }
 
+/* INPUT (SEM ANIMAÇÃO) */
 input {
   width: 65%;
-  min-width: 0;
-  height: 48px;
-  padding: 0 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(212,175,55,0.8);
-  background: rgba(0,0,0,0.72);
+  height: 42px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid #d4af37;
+  background: rgba(0,0,0,0.7);
   color: #fff;
-  font-size: 14px;
   outline: none;
 }
 
-input::placeholder {
-  color: #cfcfcf;
-}
-
+/* BOTÃO */
 .btn {
   width: 35%;
-  height: 48px;
+  height: 42px;
+  border-radius: 10px;
   border: none;
-  border-radius: 12px;
-  cursor: pointer;
+  font-size: 11px;
   font-weight: 900;
-  font-size: clamp(11px, 2.8vw, 13px);
-  letter-spacing: 0.8px;
-  background: linear-gradient(135deg, #d4af37, #fff3b0, #d4af37);
-  color: #111;
-  position: relative;
-  overflow: hidden;
-  transition: 0.25s ease;
-  box-shadow: 0 0 20px rgba(212,175,55,0.45);
-}
-
-.btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 28px rgba(255,215,0,0.75);
+  background: linear-gradient(135deg,#d4af37,#fff3b0,#d4af37);
+  cursor: pointer;
+  animation: brilhoTexto 2s infinite;
 }
 
 .btn:active {
-  transform: scale(0.97);
-}
-
-.btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 60%;
-  height: 100%;
-  background: rgba(255,255,255,0.5);
-  transform: skewX(-25deg);
-  animation: brilhoBtn 2.2s infinite;
-}
-
-@keyframes brilhoBtn {
-  0% { left: -120%; }
-  60% { left: 130%; }
-  100% { left: 130%; }
+  transform: scale(0.96);
 }
 
 #mensagem {
-  margin-top: 10px;
-  font-size: 13px;
-}
-
-.erro {
-  color: #ff6b6b;
-  font-weight: bold;
-}
-
-.sucesso {
-  color: #ffd966;
-  font-weight: bold;
+  margin-top: 8px;
+  font-size: 12px;
 }
 
 #qr img {
-  width: min(190px, 66vw);
-  margin-top: 12px;
+  width: 160px;
+  margin-top: 10px;
   background: white;
-  padding: 8px;
-  border-radius: 12px;
+  padding: 6px;
+  border-radius: 10px;
 }
 
 textarea {
   width: 100%;
-  height: 92px;
-  margin-top: 9px;
-  padding: 9px;
-  border-radius: 11px;
+  height: 70px;
+  margin-top: 6px;
+  border-radius: 8px;
   border: 1px solid #d4af37;
-  resize: none;
-  font-size: 12px;
-  outline: none;
+  font-size: 11px;
 }
 
 #qr .btn {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
-@media (max-width: 390px) {
-  .container {
-    width: 95vw;
-    padding: 14px;
-  }
-
-  .area-compra {
-    gap: 6px;
-  }
-
-  input {
-    width: 62%;
-    font-size: 13px;
-    height: 46px;
-  }
-
-  .btn {
-    width: 38%;
-    height: 46px;
-    font-size: 11px;
-    letter-spacing: 0.4px;
-  }
-
-  .streaming {
-    padding: 7px 5px;
-  }
-}
-
+/* MOBILE */
 @media (max-width: 330px) {
   .area-compra {
     flex-direction: column;
   }
-
-  input,
-  .btn {
+  input, .btn {
     width: 100%;
-  }
-}
-
-@media (min-width: 900px) {
-  .container:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 42px rgba(212,175,55,0.4);
   }
 }
 </style>
 </head>
 
 <body>
-  <main class="container">
-    <img src="logo.png" class="logo" alt="M7 Store Logo" />
 
-    <h1>M7 STORE</h1>
+<div class="container">
 
-    <p class="subtitulo">
-      Compre o <strong>pacote de streaming</strong> por apenas
-      <strong>R$29,90</strong>, com todos os streaming abaixo.
-    </p>
+  <img src="logo.png" class="logo">
 
-    <div class="preco"><span>R$</span>29,90</div>
+  <h1>M7 STORE</h1>
 
-    <div class="lista">
-      <div class="streaming">Netflix</div>
-      <div class="streaming">HBO Max</div>
-      <div class="streaming">Disney+</div>
-      <div class="streaming">Prime Video</div>
-      <div class="streaming">Paramount+</div>
-      <div class="streaming">Globoplay</div>
-      <div class="streaming">Premiere</div>
-      <div class="streaming">Sportv</div>
-      <div class="streaming">ESPN</div>
-    </div>
+  <div class="subtitulo">
+    Compre o pacote por apenas R$29,90
+  </div>
 
-    <div class="aviso-email">
-      📩 <strong>Importante:</strong> os acessos serão enviados para o e-mail informado após a confirmação da compra.
-    </div>
+  <div class="preco">R$29,90</div>
 
-    <div class="area-compra">
-      <input id="email" type="email" placeholder="Digite seu e-mail" />
-      <button class="btn" onclick="gerarPix()">COMPRAR</button>
-    </div>
+  <div class="lista">
+    <div class="streaming">Netflix</div>
+    <div class="streaming">HBO Max</div>
+    <div class="streaming">Disney+</div>
+    <div class="streaming">Prime Video</div>
+    <div class="streaming">Paramount+</div>
+    <div class="streaming">Globoplay</div>
+    <div class="streaming">Premiere</div>
+    <div class="streaming">Sportv</div>
+    <div class="streaming">ESPN</div>
+  </div>
 
-    <div id="mensagem"></div>
-    <div id="qr"></div>
-  </main>
+  <div class="aviso-email">
+    Os acessos serão enviados para o e-mail após a confirmação da compra.
+  </div>
+
+  <div class="area-compra">
+    <input id="email" type="email" placeholder="Seu e-mail">
+    <button class="btn" onclick="gerarPix()">COMPRAR</button>
+  </div>
+
+  <div id="mensagem"></div>
+  <div id="qr"></div>
+
+</div>
 
 <script>
 const API_URL = "https://m7-store-api.onrender.com";
 
 async function gerarPix() {
-  const email = document.getElementById("email").value.trim();
+  const email = document.getElementById("email").value;
   const msg = document.getElementById("mensagem");
   const qr = document.getElementById("qr");
 
-  msg.innerHTML = "";
+  msg.innerHTML = "Gerando Pix...";
   qr.innerHTML = "";
-
-  if (!email || !email.includes("@")) {
-    msg.innerHTML = '<p class="erro">Digite um e-mail válido.</p>';
-    return;
-  }
-
-  msg.innerHTML = '<p class="sucesso">Gerando Pix...</p>';
 
   try {
     const res = await fetch(`${API_URL}/create-payment`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type":"application/json"},
       body: JSON.stringify({ email })
     });
 
     const data = await res.json();
 
-    if (!res.ok) {
-      msg.innerHTML = '<p class="erro">Erro ao gerar pagamento.</p>';
-      return;
-    }
-
-    msg.innerHTML = '<p class="sucesso">Pix gerado com sucesso!</p>';
+    msg.innerHTML = "Pix gerado!";
 
     qr.innerHTML = `
-      <img src="data:image/png;base64,${data.qr_base64}" alt="QR Code Pix">
-      <textarea id="pix" readonly>${data.qr_code}</textarea>
-      <button class="btn" onclick="copiar()">COPIAR PIX</button>
+      <img src="data:image/png;base64,${data.qr_base64}">
+      <textarea readonly>${data.qr_code}</textarea>
+      <button class="btn" onclick="navigator.clipboard.writeText('${data.qr_code}')">
+        COPIAR
+      </button>
     `;
   } catch {
-    msg.innerHTML = '<p class="erro">Erro na conexão com a API.</p>';
+    msg.innerHTML = "Erro ao gerar Pix";
   }
 }
-
-function copiar() {
-  const pix = document.getElementById("pix").value;
-  navigator.clipboard.writeText(pix);
-  alert("Pix copiado!");
-}
 </script>
+
 </body>
 </html>
