@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- 🔥 FAVICON -->
+<link rel="icon" type="image/png" href="topo.png">
+
 <title>M7 STORE</title>
 
 <style>
@@ -44,7 +48,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ANIMAÇÃO TEXTO */
+/* ANIMAÇÕES */
 @keyframes brilhoTexto {
   0% { text-shadow: 0 0 5px #d4af37; }
   50% { text-shadow: 0 0 15px #ffd966; }
@@ -88,7 +92,7 @@ h1 {
   animation: brilhoTexto 1.5s infinite, pulse 1.5s infinite;
 }
 
-/* STREAMINGS */
+/* LISTA */
 .lista {
   display: grid;
   grid-template-columns: repeat(2,1fr);
@@ -130,7 +134,6 @@ h1 {
   gap: 6px;
 }
 
-/* INPUT (SEM ANIMAÇÃO) */
 input {
   width: 65%;
   height: 42px;
@@ -139,7 +142,6 @@ input {
   border: 1px solid #d4af37;
   background: rgba(0,0,0,0.7);
   color: #fff;
-  outline: none;
 }
 
 /* BOTÃO */
@@ -166,7 +168,7 @@ input {
   transform: scale(0.95);
 }
 
-/* brilho passando no botão */
+/* brilho botão */
 .btn::before {
   content: "";
   position: absolute;
@@ -243,7 +245,6 @@ function comprar() {
     return;
   }
 
-  // 🔥 REDIRECIONA DIRETO
   window.location.href = "https://mpago.la/2Lu7nSJ";
 }
 </script>
