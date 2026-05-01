@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>M7 Store</title>
 
 <style>
@@ -14,139 +14,214 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0a0a0a, #111);
-  color: white;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(255, 215, 0, 0.18), transparent 35%),
+    linear-gradient(135deg, #050505, #111111);
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  padding: 20px;
 }
 
-/* Container */
 .container {
   width: 100%;
-  max-width: 400px;
+  max-width: 430px;
   text-align: center;
 }
 
-/* Logo */
-.logo {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #00ff88;
+.logo-img {
+  width: 190px;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 18px;
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.35);
+  animation: floatLogo 3s ease-in-out infinite;
 }
 
-/* Card */
+.brand {
+  font-size: 34px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, #ffffff, #ffd700, #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #d6d6d6;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
 .card {
-  background: #1a1a1a;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 30px rgba(0,255,136,0.2);
-  animation: fadeIn 1s ease;
+  background: rgba(17, 17, 17, 0.92);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.12);
+  animation: fadeIn 0.8s ease;
 }
 
-/* Título */
-h2 {
-  margin-bottom: 10px;
-}
-
-/* Preço */
-.price {
+.card h2 {
   font-size: 24px;
-  color: #00ff88;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.description {
+  color: #cfcfcf;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffd700;
   margin-bottom: 20px;
 }
 
-/* Input */
 input {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  margin-bottom: 15px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  background: #080808;
+  color: white;
+  margin-bottom: 14px;
   outline: none;
+  font-size: 15px;
 }
 
-/* Botão */
+input::placeholder {
+  color: #aaa;
+}
+
 button {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 15px;
+  border-radius: 10px;
   border: none;
-  background: #00ff88;
-  color: black;
-  font-weight: bold;
+  background: linear-gradient(90deg, #ffd700, #ffffff, #d4af37);
+  color: #000;
+  font-size: 16px;
+  font-weight: 900;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.25s;
 }
 
 button:hover {
-  background: #00cc6a;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.35);
 }
 
-/* Pix */
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .pix {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
-/* QR */
+.pix h3 {
+  color: #ffd700;
+  margin-bottom: 12px;
+}
+
 .pix img {
-  width: 200px;
-  margin-top: 10px;
+  width: 220px;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
 }
 
-/* Código */
 .code {
   font-size: 12px;
   word-break: break-all;
-  margin-top: 10px;
+  color: #ddd;
+  background: #080808;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
-/* Animação */
+.error {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.loading {
+  color: #ffd700;
+  font-weight: bold;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+@keyframes floatLogo {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
 </style>
 </head>
 
 <body>
+  <main class="container">
+    <img src="logo.png" alt="Logo M7 Store" class="logo-img" />
 
-<div class="container">
+    <div class="brand">M7 Store</div>
+    <p class="subtitle">Sua loja digital de streaming</p>
 
-  <div class="logo">M7 Store</div>
+    <section class="card">
+      <h2>Pacote Streaming</h2>
 
-  <div class="card">
-    <h2>Pacote Streaming</h2>
-    <div class="price">R$ 29,90</div>
+      <p class="description">
+        Acesso ao pacote de streaming. Após a confirmação do Pix,
+        os dados serão enviados para o e-mail informado.
+      </p>
 
-    <input type="email" id="email" placeholder="Digite seu email">
+      <div class="price">R$ 29,90</div>
 
-    <button onclick="comprar()">Comprar</button>
+      <input type="email" id="email" placeholder="Digite seu e-mail" />
 
-    <div id="pix" class="pix"></div>
-  </div>
+      <button id="buyButton" onclick="comprar()">Comprar com Pix</button>
 
-</div>
+      <div id="pix" class="pix"></div>
+    </section>
+  </main>
 
 <script>
 async function comprar() {
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
+  const pixDiv = document.getElementById("pix");
+  const button = document.getElementById("buyButton");
 
-  if (!email) {
-    alert("Digite um email válido");
+  if (!email || !email.includes("@")) {
+    alert("Digite um e-mail válido.");
     return;
   }
 
-  const pixDiv = document.getElementById("pix");
-  pixDiv.innerHTML = "Gerando pagamento...";
+  pixDiv.innerHTML = '<p class="loading">Gerando pagamento Pix...</p>';
+  button.disabled = true;
+  button.innerText = "Gerando Pix...";
 
   try {
     const res = await fetch("https://m7-store-api.onrender.com/create-payment", {
@@ -159,24 +234,32 @@ async function comprar() {
 
     const data = await res.json();
 
-    if (data.error) {
-      pixDiv.innerHTML = "Erro ao gerar pagamento";
+    if (!res.ok || data.error) {
       console.log(data);
+      pixDiv.innerHTML = '<p class="error">Erro ao gerar pagamento. Tente novamente.</p>';
+      return;
+    }
+
+    if (!data.qr_base64 || !data.qr_code) {
+      console.log(data);
+      pixDiv.innerHTML = '<p class="error">Pix não retornado corretamente.</p>';
       return;
     }
 
     pixDiv.innerHTML = `
       <h3>Pague com Pix</h3>
-      <img src="data:image/png;base64,${data.qr_base64}" />
+      <img src="data:image/png;base64,${data.qr_base64}" alt="QR Code Pix" />
       <div class="code">${data.qr_code}</div>
     `;
 
   } catch (err) {
-    pixDiv.innerHTML = "Erro na conexão";
     console.log(err);
+    pixDiv.innerHTML = '<p class="error">Erro de conexão com o servidor.</p>';
+  } finally {
+    button.disabled = false;
+    button.innerText = "Comprar com Pix";
   }
 }
 </script>
-
 </body>
 </html>
