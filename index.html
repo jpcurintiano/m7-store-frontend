@@ -21,30 +21,16 @@ html, body {
 body {
   min-height: 100dvh;
   background:
-    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.58)),
     url("fundo.png");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   color: #fff;
   display: grid;
   place-items: center;
   padding: clamp(14px, 3vw, 28px);
   overflow-x: hidden;
-}
-
-/* 🔥 efeito luz passando no fundo */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(255,215,0,0.15), transparent);
-  animation: luz 6s infinite linear;
-  pointer-events: none;
-}
-
-@keyframes luz {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(100%); }
 }
 
 .container {
@@ -57,9 +43,7 @@ body::before {
   padding: clamp(18px, 4vw, 24px);
   text-align: center;
   backdrop-filter: blur(6px);
-  box-shadow:
-    0 0 28px rgba(212,175,55,0.25),
-    inset 0 0 15px rgba(255,255,255,0.05);
+  box-shadow: 0 0 28px rgba(212,175,55,0.22);
   animation: subir 0.6s ease;
 }
 
@@ -71,21 +55,20 @@ body::before {
 .logo {
   width: clamp(82px, 25vw, 112px);
   margin-bottom: 10px;
-  filter: drop-shadow(0 0 18px gold);
+  filter: drop-shadow(0 0 14px rgba(255,215,0,0.85));
   animation: brilho 2s infinite alternate;
 }
 
 @keyframes brilho {
   from { transform: scale(1); }
-  to { transform: scale(1.06); }
+  to { transform: scale(1.04); }
 }
 
 h1 {
   font-size: clamp(26px, 7vw, 30px);
-  color: #ffd84d;
+  color: #d4af37;
   letter-spacing: 2px;
   margin-bottom: 8px;
-  text-shadow: 0 0 12px rgba(212,175,55,0.8);
 }
 
 .subtitulo {
@@ -99,54 +82,27 @@ h1 {
 }
 
 .preco {
-  font-size: clamp(36px, 10vw, 42px);
+  font-size: clamp(34px, 10vw, 42px);
   font-weight: 900;
   color: #fff;
   margin: 10px 0 14px;
-  text-shadow: 0 0 16px rgba(212,175,55,1);
+  text-shadow: 0 0 14px rgba(212,175,55,0.8);
 }
 
 .preco span {
   color: #d4af37;
 }
 
-/* 🔥 NOVA LISTA COM LOGOS */
 .lista {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  font-size: clamp(13px, 3.4vw, 14px);
+  line-height: 1.6;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 12px;
+  border-radius: 13px;
   margin-bottom: 12px;
 }
 
-.item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 10px;
-  border-radius: 10px;
-  transition: 0.25s;
-}
-
-.item:hover {
-  transform: scale(1.05);
-  border-color: gold;
-  box-shadow: 0 0 12px rgba(212,175,55,0.5);
-}
-
-.item img {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-}
-
-.item span {
-  font-weight: 700;
-  font-size: 14px;
-}
-
-/* INPUT */
 input {
   width: 100%;
   padding: 14px;
@@ -156,15 +112,12 @@ input {
   color: #fff;
   font-size: 16px;
   outline: none;
-  transition: 0.2s;
 }
 
-input:focus {
-  border-color: gold;
-  box-shadow: 0 0 10px rgba(212,175,55,0.5);
+input::placeholder {
+  color: #cfcfcf;
 }
 
-/* BOTÃO */
 .btn {
   width: 100%;
   margin-top: 13px;
@@ -174,16 +127,17 @@ input:focus {
   cursor: pointer;
   font-weight: 900;
   font-size: clamp(15px, 4vw, 16px);
-  background: linear-gradient(135deg, #d4af37, #fff3b0);
+  letter-spacing: 1.2px;
+  background: linear-gradient(135deg, #d4af37, #fff3b0, #d4af37);
   color: #111;
   position: relative;
   overflow: hidden;
-  transition: 0.25s;
-  box-shadow: 0 0 20px rgba(212,175,55,0.6);
+  transition: 0.25s ease;
+  box-shadow: 0 0 20px rgba(212,175,55,0.45);
 }
 
-.btn:hover {
-  transform: scale(1.05);
+.btn:active {
+  transform: scale(0.98);
 }
 
 .btn::before {
@@ -193,9 +147,9 @@ input:focus {
   left: -110%;
   width: 60%;
   height: 100%;
-  background: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.45);
   transform: skewX(-25deg);
-  animation: brilhoBtn 2s infinite;
+  animation: brilhoBtn 2.2s infinite;
 }
 
 @keyframes brilhoBtn {
@@ -206,10 +160,18 @@ input:focus {
 
 #mensagem {
   margin-top: 12px;
+  font-size: 14px;
 }
 
-.erro { color: #ff6b6b; }
-.sucesso { color: gold; }
+.erro {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.sucesso {
+  color: #ffd966;
+  font-weight: bold;
+}
 
 #qr img {
   width: min(210px, 70vw);
@@ -225,12 +187,32 @@ textarea {
   margin-top: 10px;
   padding: 10px;
   border-radius: 11px;
+  border: 1px solid #d4af37;
+  resize: none;
+  font-size: 12px;
+  outline: none;
 }
 
-/* MOBILE */
 @media (max-width: 430px) {
+  body {
+    align-items: center;
+    background-position: center center;
+  }
+
+  .container {
+    width: min(94vw, 380px);
+    border-radius: 20px;
+  }
+
   .lista {
-    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 900px) {
+  .container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 38px rgba(212,175,55,0.3);
   }
 }
 </style>
@@ -249,18 +231,9 @@ textarea {
 
     <div class="preco"><span>R$</span>29,90</div>
 
-    <!-- 🔥 LISTA COM LOGOS -->
     <div class="lista">
-      <div class="item"><img src="logos/netflix.png"><span>Netflix</span></div>
-      <div class="item"><img src="logos/hbo.png"><span>HBO Max</span></div>
-      <div class="item"><img src="logos/disney.png"><span>Disney+</span></div>
-      <div class="item"><img src="logos/prime.png"><span>Prime Video</span></div>
-      <div class="item"><img src="logos/paramount.png"><span>Paramount+</span></div>
-      <div class="item"><img src="logos/globo.png"><span>Globoplay</span></div>
-      <div class="item"><img src="logos/premiere.png"><span>Premiere</span></div>
-      <div class="item"><img src="logos/sporttv.png"><span>SporTV</span></div>
-      <div class="item"><img src="logos/espn.png"><span>ESPN</span></div>
-      <div class="item"><img src="logos/appletv.png"><span>Apple TV+</span></div>
+      Netflix • HBO Max • Disney+ • Prime Video • Paramount+<br />
+      Globoplay • Premiere • Sportv • ESPN
     </div>
 
     <input id="email" type="email" placeholder="Digite seu e-mail" />
@@ -278,7 +251,6 @@ async function gerarPix() {
   const email = document.getElementById("email").value.trim();
   const msg = document.getElementById("mensagem");
   const qr = document.getElementById("qr");
-  const btn = document.querySelector(".btn");
 
   msg.innerHTML = "";
   qr.innerHTML = "";
@@ -288,8 +260,7 @@ async function gerarPix() {
     return;
   }
 
-  btn.innerText = "GERANDO...";
-  btn.disabled = true;
+  msg.innerHTML = '<p class="sucesso">Gerando Pix...</p>';
 
   try {
     const res = await fetch(`${API_URL}/create-payment`, {
@@ -302,22 +273,18 @@ async function gerarPix() {
 
     if (!res.ok) {
       msg.innerHTML = '<p class="erro">Erro ao gerar pagamento.</p>';
-      btn.innerText = "COMPRAR AGORA";
-      btn.disabled = false;
       return;
     }
 
     msg.innerHTML = '<p class="sucesso">Pix gerado com sucesso!</p>';
 
     qr.innerHTML = `
-      <img src="data:image/png;base64,${data.qr_base64}">
-      <textarea id="pix">${data.qr_code}</textarea>
+      <img src="data:image/png;base64,${data.qr_base64}" alt="QR Code Pix">
+      <textarea id="pix" readonly>${data.qr_code}</textarea>
       <button class="btn" onclick="copiar()">COPIAR PIX</button>
     `;
   } catch {
-    msg.innerHTML = '<p class="erro">Erro na conexão.</p>';
-    btn.innerText = "COMPRAR AGORA";
-    btn.disabled = false;
+    msg.innerHTML = '<p class="erro">Erro na conexão com a API.</p>';
   }
 }
 
@@ -327,6 +294,5 @@ function copiar() {
   alert("Pix copiado!");
 }
 </script>
-
 </body>
 </html>
