@@ -3,21 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Acesso a Netflix, HBO Max, Disney+, Prime Video, ESPN, SporTV e mais...">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="M7 STORE">
+<meta property="og:title" content="M7 STORE | Todos os Streamings por R$29,90">
+<meta property="og:description" content="Acesso a Netflix, HBO Max, Disney+, Prime Video, ESPN, SporTV e mais...">
+<meta property="og:url" content="https://m7store.vercel.app/">
+<meta property="og:image" content="https://m7store.vercel.app/preview.png">
+<meta property="og:image:secure_url" content="https://m7store.vercel.app/preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="M7 STORE - Todos os Streamings por R$29,90">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="M7 STORE | Todos os Streamings por R$29,90">
+<meta name="twitter:description" content="Acesso a Netflix, HBO Max, Disney+, Prime Video, ESPN, SporTV e mais...">
+<meta name="twitter:image" content="https://m7store.vercel.app/preview.png">
 <link rel="icon" type="image/png" href="topo.png">
-<title>M7 STORE - Pagamento via PIX</title>
+<link rel="apple-touch-icon" href="logo.png">
+<title>M7 STORE | Todos os Streamings por R$29,90</title>
 <style>
 :root {
   --gold: #d4af37;
-  --gold-strong: #f2cf63;
-  --gold-soft: #fff3b0;
+  --gold-light: #fff3b0;
   --pix: #32bcad;
   --text: #ffffff;
-  --muted: #d8d8d8;
-  --soft: rgba(255, 255, 255, 0.08);
-  --line: rgba(212, 175, 55, 0.38);
-  --panel: rgba(0, 0, 0, 0.9);
-  --panel-strong: rgba(0, 0, 0, 0.96);
+  --muted: #d7d7d7;
+  --panel: #070707;
+  --panel-2: #101010;
+  --line: rgba(212, 175, 55, 0.44);
 }
 * {
   margin: 0;
@@ -27,34 +43,18 @@
 html {
   width: 100%;
   min-height: 100%;
+  background: #000;
   -webkit-text-size-adjust: 100%;
 }
 body {
   width: 100%;
   min-height: 100vh;
-  background-color: #000;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.9)),
-    url("fundo5.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  background: #000;
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(0,0,0,0.58), transparent 28%, transparent 72%, rgba(0,0,0,0.58)),
-    radial-gradient(circle at center, transparent 0 35%, rgba(0,0,0,0.42) 76%);
-}
 .page {
-  position: relative;
-  z-index: 1;
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
@@ -63,27 +63,113 @@ body::before {
   align-items: flex-start;
   justify-content: center;
   padding:
-    max(26px, env(safe-area-inset-top))
+    max(22px, env(safe-area-inset-top))
     max(14px, env(safe-area-inset-right))
     max(22px, env(safe-area-inset-bottom))
     max(14px, env(safe-area-inset-left));
 }
 .shell {
-  width: min(1060px, 100%);
+  width: min(1040px, 100%);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 390px;
-  gap: 18px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 16px;
 }
 .panel,
 .checkout {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: 0 0 26px rgba(212, 175, 55, 0.24);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.18);
 }
 .panel {
+  padding: 22px;
+}
+.checkout {
+  padding: 18px;
+}
+.brand {
   display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.logo-wrap {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 50%;
+  background: #0d0d0d;
+  overflow: hidden;
+}
+.logo {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+}
+.logo-fallback {
+  display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-light);
+  line-height: 1;
+  text-align: center;
+}
+.logo-fallback strong {
+  display: block;
+  font-size: 23px;
+  font-weight: 900;
+}
+.logo-fallback small {
+  display: block;
+  margin-top: 3px;
+  color: var(--gold);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+.eyebrow {
+  margin-bottom: 5px;
+  color: var(--gold-light);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+h1 {
+  color: var(--gold-light);
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1;
+}
+.lead {
+  max-width: 620px;
+  color: #f1f1f1;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 18px;
+}
+.price {
+  color: var(--gold-light);
+  font-size: clamp(44px, 7vw, 68px);
+  line-height: 1;
+  font-weight: 900;
+}
+.period {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid rgba(50, 188, 173, 0.52);
+  border-radius: 999px;
+  color: #dcfffb;
+  background: rgba(50, 188, 173, 0.1);
+  font-size: 12px;
+  font-weight: 800;
