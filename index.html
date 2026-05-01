@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>M7 Store</title>
+<style>
+body {
+  background: #0a0a0a;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+.card {
+  margin-top: 100px;
+}
+button {
+  padding: 15px;
+  background: #00ff88;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+input {
+  padding: 10px;
+  margin: 10px;
+}
+img {
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<h1>M7 Store</h1>
+
+<div class="card">
+  <h2>Pacote Streaming</h2>
+  <p>R$29,90</p>
+
+  <input type="email" id="email" placeholder="Seu email">
+  <br>
+
+  <button onclick="comprar()">Comprar</button>
+
+  <div id="pix"></div>
+</div>
+
+<script>
+async function comprar(){
+  const email = document.getElementById("email").value;
+
+  const res = await fetch("https://m7-store-api.onrender.com/create-payment", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ email })
+  });
+
+  const data = await res.json();
+
+  document.getElementById("pix").innerHTML =
+    `<h3>Pague com Pix</h3>
+     <img src="data:image/png;base64,${data.qr_base64}" />
+     <p>${data.qr_code}</p>`;
+}
+</script>
+
+</body>
+</html>
