@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>M7 STORE</title>
 
 <style>
@@ -14,10 +14,8 @@
 }
 
 body {
-  min-height: 100dvh;
-  background:
-    linear-gradient(rgba(0,0,0,0.52), rgba(0,0,0,0.68)),
-    url("fundo.png");
+  min-height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url("fundo.png");
   background-size: cover;
   background-position: center;
   display: grid;
@@ -27,41 +25,45 @@ body {
 }
 
 .container {
-  width: min(92vw, 350px);
-  background: rgba(0,0,0,0.72);
-  border: 1px solid rgba(255,215,0,0.65);
+  width: min(92vw, 340px);
+  background: rgba(0,0,0,0.75);
+  border: 1px solid #d4af37;
   border-radius: 18px;
   padding: 12px;
   text-align: center;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 28px rgba(212,175,55,0.35);
+  box-shadow: 0 0 25px rgba(212,175,55,0.3);
 }
 
+/* LOGO */
 .logo {
   width: 70px;
   margin-bottom: 6px;
 }
 
+/* TITULO */
 h1 {
   font-size: 22px;
   color: #d4af37;
   margin-bottom: 4px;
 }
 
+/* TEXTO */
 .subtitulo {
   font-size: 12.5px;
   margin-bottom: 6px;
 }
 
+/* PREÇO */
 .preco {
-  font-size: 30px;
-  font-weight: 900;
-  margin: 5px 0 7px;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 6px 0;
 }
 
+/* STREAMINGS */
 .lista {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2,1fr);
   gap: 5px;
   margin-bottom: 7px;
 }
@@ -74,6 +76,7 @@ h1 {
   border: 1px solid rgba(212,175,55,0.4);
 }
 
+/* AVISO */
 .aviso-email {
   font-size: 11px;
   padding: 7px;
@@ -83,11 +86,13 @@ h1 {
   margin-bottom: 7px;
 }
 
+/* AREA COMPRA */
 .area-compra {
   display: flex;
   gap: 6px;
 }
 
+/* INPUT */
 input {
   width: 65%;
   height: 42px;
@@ -98,6 +103,7 @@ input {
   color: #fff;
 }
 
+/* BOTÃO */
 .btn {
   width: 35%;
   height: 42px;
@@ -109,7 +115,12 @@ input {
   cursor: pointer;
 }
 
-@media (max-width: 315px) {
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* MOBILE */
+@media (max-width: 320px) {
   .area-compra {
     flex-direction: column;
   }
@@ -151,7 +162,7 @@ input {
   </div>
 
   <div class="area-compra">
-    <input id="email" type="email" placeholder="Seu e-mail">
+    <input id="email" type="email" placeholder="Digite seu e-mail">
     <button class="btn" onclick="comprar()">COMPRAR</button>
   </div>
 
@@ -166,7 +177,7 @@ function comprar() {
     return;
   }
 
-  // 🔥 REDIRECIONAMENTO DIRETO
+  // 🔥 REDIRECIONA DIRETO (SEM API)
   window.location.href = "https://mpago.la/2Lu7nSJ";
 }
 </script>
