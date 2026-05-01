@@ -21,7 +21,7 @@ html, body {
 body {
   min-height: 100dvh;
   background:
-    linear-gradient(rgba(0,0,0,0.50), rgba(0,0,0,0.68)),
+    linear-gradient(rgba(0,0,0,0.46), rgba(0,0,0,0.62)),
     url("fundo.png");
   background-size: cover;
   background-position: center;
@@ -29,21 +29,21 @@ body {
   color: #fff;
   display: grid;
   place-items: center;
-  padding: 16px;
+  padding: clamp(14px, 3vw, 28px);
   overflow-x: hidden;
 }
 
 .container {
-  width: min(92vw, 390px);
-  background: rgba(0,0,0,0.72);
-  border: 1.5px solid rgba(255,215,0,0.75);
+  width: min(94vw, 410px);
+  max-height: 96dvh;
+  overflow-y: auto;
+  background: rgba(0,0,0,0.68);
+  border: 1px solid rgba(255,215,0,0.65);
   border-radius: 24px;
-  padding: 22px;
+  padding: clamp(18px, 4vw, 24px);
   text-align: center;
   backdrop-filter: blur(8px);
-  box-shadow:
-    0 0 25px rgba(255,215,0,0.32),
-    inset 0 0 18px rgba(255,215,0,0.08);
+  box-shadow: 0 0 35px rgba(212,175,55,0.32);
   animation: subir 0.6s ease;
 }
 
@@ -53,105 +53,104 @@ body {
 }
 
 .logo {
-  width: clamp(85px, 25vw, 112px);
+  width: clamp(82px, 25vw, 112px);
   margin-bottom: 10px;
   filter: drop-shadow(0 0 16px rgba(255,215,0,0.9));
-  animation: brilho 2s infinite alternate;
+  animation: brilhoLogo 2s infinite alternate;
 }
 
-@keyframes brilho {
+@keyframes brilhoLogo {
   from { transform: scale(1); }
-  to { transform: scale(1.05); }
+  to { transform: scale(1.04); }
 }
 
 h1 {
-  font-size: clamp(27px, 7vw, 32px);
-  color: #ffd700;
+  font-size: clamp(26px, 7vw, 32px);
+  color: #d4af37;
   letter-spacing: 2px;
   margin-bottom: 8px;
-  text-shadow: 0 0 14px rgba(255,215,0,0.7);
+  text-shadow: 0 0 12px rgba(212,175,55,0.55);
 }
 
 .subtitulo {
   font-size: clamp(14px, 3.7vw, 15.5px);
   line-height: 1.45;
   margin-bottom: 12px;
-  color: #f4f4f4;
 }
 
 .subtitulo strong {
-  color: #ffe26a;
+  color: #ffd966;
 }
 
 .preco {
-  font-size: clamp(38px, 11vw, 48px);
+  font-size: clamp(38px, 10vw, 48px);
   font-weight: 900;
   color: #fff;
-  margin: 10px 0 16px;
-  text-shadow:
-    0 0 10px rgba(255,215,0,0.9),
-    0 0 22px rgba(255,215,0,0.75);
+  margin: 10px 0 14px;
+  text-shadow: 0 0 18px rgba(212,175,55,0.9);
 }
 
 .preco span {
-  color: #ffd700;
+  color: #d4af37;
 }
 
-/* PARTE DESTACADA DOS STREAMINGS */
 .lista {
-  margin: 0 auto 14px;
-  padding: 14px 12px;
-  border-radius: 16px;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.92), rgba(30,22,0,0.92));
-  border: 2px solid #ffd700;
-  box-shadow:
-    0 0 16px rgba(255,215,0,0.55),
-    inset 0 0 16px rgba(255,215,0,0.16);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+  margin-bottom: 12px;
 }
 
-.lista-titulo {
-  font-size: 12px;
-  font-weight: 900;
-  color: #ffd700;
-  letter-spacing: 1.4px;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  text-shadow: 0 0 10px rgba(255,215,0,0.8);
-}
-
-.streamings {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 7px;
-}
-
-.streamings span {
-  background: rgba(255,255,255,0.10);
-  border: 1px solid rgba(255,215,0,0.45);
-  color: #ffffff;
-  padding: 6px 9px;
-  border-radius: 999px;
-  font-size: clamp(12px, 3.3vw, 13.5px);
+.streaming {
+  padding: 10px 8px;
+  border-radius: 11px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(212,175,55,0.42);
+  color: #fff;
+  font-size: clamp(12.5px, 3.4vw, 14px);
   font-weight: 800;
-  text-shadow: 0 0 8px rgba(255,255,255,0.4);
-  box-shadow: 0 0 8px rgba(255,215,0,0.15);
+  text-shadow: 0 0 8px rgba(0,0,0,0.9);
+  transition: 0.25s ease;
+  cursor: pointer;
+}
+
+.streaming:hover {
+  transform: scale(1.06) translateY(-2px);
+  background: rgba(212,175,55,0.16);
+  border-color: #ffd966;
+  box-shadow: 0 0 16px rgba(212,175,55,0.72);
+  color: #ffd966;
+}
+
+.aviso-email {
+  margin: 12px 0 14px;
+  padding: 12px;
+  border-radius: 13px;
+  background: rgba(0,0,0,0.72);
+  border: 1px solid rgba(255,215,0,0.45);
+  color: #fff;
+  font-size: clamp(12.5px, 3.4vw, 14px);
+  line-height: 1.45;
+  box-shadow: 0 0 14px rgba(212,175,55,0.2);
+}
+
+.aviso-email strong {
+  color: #ffd966;
 }
 
 input {
   width: 100%;
   padding: 14px;
   border-radius: 12px;
-  border: 1px solid rgba(255,215,0,0.85);
-  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(212,175,55,0.8);
+  background: rgba(0,0,0,0.72);
   color: #fff;
   font-size: 16px;
   outline: none;
 }
 
 input::placeholder {
-  color: #d7d7d7;
+  color: #cfcfcf;
 }
 
 .btn {
@@ -163,18 +162,18 @@ input::placeholder {
   cursor: pointer;
   font-weight: 900;
   font-size: clamp(15px, 4vw, 16px);
-  letter-spacing: 1.3px;
-  background: linear-gradient(135deg, #d4af37, #fff1a3, #d4af37);
+  letter-spacing: 1.2px;
+  background: linear-gradient(135deg, #d4af37, #fff3b0, #d4af37);
   color: #111;
   position: relative;
   overflow: hidden;
   transition: 0.25s ease;
-  box-shadow: 0 0 22px rgba(255,215,0,0.5);
+  box-shadow: 0 0 22px rgba(212,175,55,0.5);
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 32px rgba(255,215,0,0.75);
+  transform: scale(1.03);
+  box-shadow: 0 0 28px rgba(255,215,0,0.75);
 }
 
 .btn:active {
@@ -188,7 +187,7 @@ input::placeholder {
   left: -110%;
   width: 60%;
   height: 100%;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.45);
   transform: skewX(-25deg);
   animation: brilhoBtn 2.2s infinite;
 }
@@ -236,18 +235,28 @@ textarea {
 
 @media (max-width: 430px) {
   body {
-    background-position: center;
-    padding: 12px;
+    background-position: center center;
   }
 
   .container {
-    width: 94vw;
-    padding: 18px;
-    border-radius: 21px;
+    width: min(94vw, 380px);
+    border-radius: 20px;
+    padding: 17px;
   }
 
-  .streamings span {
-    padding: 6px 8px;
+  .lista {
+    gap: 7px;
+  }
+
+  .streaming {
+    padding: 9px 6px;
+  }
+}
+
+@media (min-width: 900px) {
+  .container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 42px rgba(212,175,55,0.36);
   }
 }
 </style>
@@ -261,25 +270,25 @@ textarea {
 
     <p class="subtitulo">
       Compre o <strong>pacote de streaming</strong> por apenas
-      <strong>R$29,90</strong>, com todos os streamings abaixo.
+      <strong>R$29,90</strong>, com todos os streaming abaixo.
     </p>
 
     <div class="preco"><span>R$</span>29,90</div>
 
     <div class="lista">
-      <div class="lista-titulo">Incluído no pacote</div>
+      <div class="streaming">Netflix</div>
+      <div class="streaming">HBO Max</div>
+      <div class="streaming">Disney+</div>
+      <div class="streaming">Prime Video</div>
+      <div class="streaming">Paramount+</div>
+      <div class="streaming">Globoplay</div>
+      <div class="streaming">Premiere</div>
+      <div class="streaming">Sportv</div>
+      <div class="streaming">ESPN</div>
+    </div>
 
-      <div class="streamings">
-        <span>Netflix</span>
-        <span>HBO Max</span>
-        <span>Disney+</span>
-        <span>Prime Video</span>
-        <span>Paramount+</span>
-        <span>Globoplay</span>
-        <span>Premiere</span>
-        <span>Sportv</span>
-        <span>ESPN</span>
-      </div>
+    <div class="aviso-email">
+      📩 <strong>Importante:</strong> os acessos serão enviados para o e-mail informado após a confirmação da compra.
     </div>
 
     <input id="email" type="email" placeholder="Digite seu e-mail" />
