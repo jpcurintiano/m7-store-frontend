@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>M7 STORE</title>
+<title>M7 Store</title>
 
 <style>
 * {
@@ -18,7 +18,7 @@ body {
   background:
     radial-gradient(circle at top, rgba(255, 215, 0, 0.18), transparent 35%),
     linear-gradient(135deg, #050505, #111111);
-  color: #ffffff;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,25 +27,24 @@ body {
 
 .container {
   width: 100%;
-  max-width: 430px;
+  max-width: 440px;
   text-align: center;
 }
 
 .logo-img {
-  width: 190px;
-  height: 190px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 18px;
   box-shadow: 0 0 35px rgba(255, 215, 0, 0.35);
-  animation: floatLogo 3s ease-in-out infinite;
 }
 
 .brand {
   font-size: 34px;
   font-weight: 900;
   margin-bottom: 8px;
-  background: linear-gradient(90deg, #ffffff, #ffd700, #b8860b);
+  background: linear-gradient(90deg, #fff, #ffd700, #b8860b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -57,18 +56,16 @@ body {
 }
 
 .card {
-  background: rgba(17, 17, 17, 0.92);
+  background: rgba(17, 17, 17, 0.94);
   border: 1px solid rgba(255, 215, 0, 0.25);
   padding: 28px;
   border-radius: 20px;
   box-shadow: 0 0 35px rgba(255, 215, 0, 0.12);
-  animation: fadeIn 0.8s ease;
 }
 
 .card h2 {
   font-size: 24px;
   margin-bottom: 10px;
-  color: #ffffff;
 }
 
 .description {
@@ -79,7 +76,7 @@ body {
 }
 
 .price {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 900;
   color: #ffd700;
   margin-bottom: 20px;
@@ -97,16 +94,12 @@ input {
   font-size: 15px;
 }
 
-input::placeholder {
-  color: #aaa;
-}
-
 button {
   width: 100%;
   padding: 15px;
   border-radius: 10px;
   border: none;
-  background: linear-gradient(90deg, #ffd700, #ffffff, #d4af37);
+  background: linear-gradient(90deg, #ffd700, #fff, #d4af37);
   color: #000;
   font-size: 16px;
   font-weight: 900;
@@ -115,7 +108,7 @@ button {
 }
 
 button:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px);
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.35);
 }
 
@@ -134,7 +127,7 @@ button:disabled {
 }
 
 .pix img {
-  width: 220px;
+  width: 230px;
   background: white;
   padding: 10px;
   border-radius: 12px;
@@ -149,6 +142,11 @@ button:disabled {
   padding: 12px;
   border-radius: 10px;
   border: 1px solid rgba(255, 215, 0, 0.2);
+  margin-bottom: 12px;
+}
+
+.copy-btn {
+  margin-top: 8px;
 }
 
 .error {
@@ -161,24 +159,9 @@ button:disabled {
   font-weight: bold;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatLogo {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+.success {
+  color: #58ff8a;
+  font-weight: bold;
 }
 </style>
 </head>
@@ -188,17 +171,16 @@ button:disabled {
     <img src="logo.png" alt="Logo M7 Store" class="logo-img" />
 
     <div class="brand">M7 STORE</div>
-    <p class="subtitle">Sua loja digital de streaming</p>
+    <p class="subtitle">Compra segura com pagamento Pix</p>
 
     <section class="card">
-      <h2>Pacote Streaming</h2>
+      <h2>Produto Digital</h2>
 
       <p class="description">
-        Acesso ao pacote de streaming. Após a confirmação do Pix,
-        os dados serão enviados para o e-mail informado.
+        Após a confirmação do pagamento, a entrega será enviada para o e-mail informado.
       </p>
 
-      <div class="price">Válido por 90 dias, por apenas: R$ 29,90</div>
+      <div class="price">R$ 29,90</div>
 
       <input type="email" id="email" placeholder="Digite seu e-mail" />
 
@@ -209,12 +191,22 @@ button:disabled {
   </main>
 
 <script>
+const API_URL = "https://m7-store-api.onrender.com";
+
+let currentQrCode = "";
+let currentPaymentId = "";
+let statusInterval = null;
+
+function validarEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 async function comprar() {
-  const email = document.getElementById("email").value.trim();
+  const email = document.getElementById("email").value.trim().toLowerCase();
   const pixDiv = document.getElementById("pix");
   const button = document.getElementById("buyButton");
 
-  if (!email || !email.includes("@")) {
+  if (!validarEmail(email)) {
     alert("Digite um e-mail válido.");
     return;
   }
@@ -224,7 +216,7 @@ async function comprar() {
   button.innerText = "Gerando Pix...";
 
   try {
-    const res = await fetch("https://m7-store-api.onrender.com/create-payment", {
+    const res = await fetch(`${API_URL}/create-payment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -236,21 +228,22 @@ async function comprar() {
 
     if (!res.ok || data.error) {
       console.log(data);
-      pixDiv.innerHTML = '<p class="error">Erro ao gerar pagamento. Tente novamente.</p>';
+      pixDiv.innerHTML = `<p class="error">${data.error || "Erro ao gerar pagamento."}</p>`;
       return;
     }
 
-    if (!data.qr_base64 || !data.qr_code) {
-      console.log(data);
-      pixDiv.innerHTML = '<p class="error">Pix não retornado corretamente.</p>';
-      return;
-    }
+    currentQrCode = data.qr_code;
+    currentPaymentId = data.payment_id;
 
     pixDiv.innerHTML = `
       <h3>Pague com Pix</h3>
       <img src="data:image/png;base64,${data.qr_base64}" alt="QR Code Pix" />
-      <div class="code">${data.qr_code}</div>
+      <div class="code" id="pixCode">${data.qr_code}</div>
+      <button class="copy-btn" onclick="copiarPix()">Copiar código Pix</button>
+      <p class="loading" id="paymentStatus">Aguardando pagamento...</p>
     `;
+
+    iniciarConsultaStatus();
 
   } catch (err) {
     console.log(err);
@@ -259,6 +252,43 @@ async function comprar() {
     button.disabled = false;
     button.innerText = "Comprar com Pix";
   }
+}
+
+async function copiarPix() {
+  if (!currentQrCode) return;
+
+  await navigator.clipboard.writeText(currentQrCode);
+  alert("Código Pix copiado!");
+}
+
+function iniciarConsultaStatus() {
+  if (statusInterval) clearInterval(statusInterval);
+
+  statusInterval = setInterval(async () => {
+    if (!currentPaymentId) return;
+
+    try {
+      const res = await fetch(`${API_URL}/payment-status/${currentPaymentId}`);
+      const data = await res.json();
+
+      const statusEl = document.getElementById("paymentStatus");
+      if (!statusEl) return;
+
+      if (data.status === "approved") {
+        statusEl.className = "success";
+        statusEl.innerText = "Pagamento aprovado! Verifique seu e-mail.";
+        clearInterval(statusInterval);
+      } else if (data.status === "pending") {
+        statusEl.className = "loading";
+        statusEl.innerText = "Aguardando pagamento...";
+      } else {
+        statusEl.className = "error";
+        statusEl.innerText = `Status do pagamento: ${data.status || "desconhecido"}`;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, 5000);
 }
 </script>
 </body>
