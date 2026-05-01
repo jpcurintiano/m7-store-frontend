@@ -3,18 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050505">
 
 <link rel="icon" type="image/png" href="topo.png">
 
-<title>M7 STORE - Loja de Streaming</title>
+<title>M7 STORE - Pagamento via PIX</title>
 
 <style>
 :root {
   --gold: #d4af37;
-  --gold-light: #fff3b0;
+  --gold-strong: #f2cf63;
+  --gold-soft: #fff3b0;
+  --pix: #32bcad;
   --text: #ffffff;
-  --card-bg: rgba(0, 0, 0, 0.92);
-  --border: rgba(212, 175, 55, 0.55);
+  --muted: #d8d8d8;
+  --soft: rgba(255, 255, 255, 0.08);
+  --line: rgba(212, 175, 55, 0.38);
+  --panel: rgba(0, 0, 0, 0.9);
+  --panel-strong: rgba(0, 0, 0, 0.96);
 }
 
 * {
@@ -34,7 +40,7 @@ body {
   min-height: 100vh;
   background-color: #000;
   background-image:
-    linear-gradient(rgba(0,0,0,0.74), rgba(0,0,0,0.88)),
+    linear-gradient(rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.9)),
     url("fundo5.png");
   background-repeat: no-repeat;
   background-position: center center;
@@ -44,372 +50,51 @@ body {
   overflow-x: hidden;
 }
 
-/* PADRAO: CENTRALIZADO */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.58), transparent 28%, transparent 72%, rgba(0,0,0,0.58)),
+    radial-gradient(circle at center, transparent 0 35%, rgba(0,0,0,0.42) 76%);
+}
+
 .page {
+  position: relative;
+  z-index: 1;
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
   min-height: 100dvh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding:
-    max(16px, env(safe-area-inset-top))
-    max(10px, env(safe-area-inset-right))
-    max(16px, env(safe-area-inset-bottom))
-    max(10px, env(safe-area-inset-left));
+    max(26px, env(safe-area-inset-top))
+    max(14px, env(safe-area-inset-right))
+    max(22px, env(safe-area-inset-bottom))
+    max(14px, env(safe-area-inset-left));
 }
 
-/* SOMENTE PC: SOBE O CARD */
-@media (min-width: 768px) {
-  .page {
-    align-items: flex-start;
-    padding-top: 32px;
-  }
-}
-
-.container {
-  width: min(92vw, 320px);
-  padding: 15px;
-  text-align: center;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  box-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
-  animation: entrada 0.45s ease both;
-}
-
-@media (min-width: 768px) {
-  .container {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-}
-
-@keyframes entrada {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes brilhoTexto {
-  0%, 100% {
-    text-shadow: 0 0 4px var(--gold);
-  }
-
-  50% {
-    text-shadow: 0 0 10px var(--gold-light);
-  }
-}
-
-.logo {
-  width: 62px;
-  height: auto;
-  display: block;
-  margin: 0 auto 6px;
-}
-
-h1 {
-  font-size: 21px;
-  line-height: 1.1;
-  color: var(--gold);
-  margin-bottom: 6px;
-  letter-spacing: 0;
-  animation: brilhoTexto 2.8s ease-in-out infinite;
-}
-
-.subtitulo {
-  font-size: 11px;
-  line-height: 1.3;
-  margin-bottom: 7px;
-  color: #f3f3f3;
-}
-
-.preco {
-  font-size: 31px;
-  line-height: 1.1;
-  font-weight: 800;
-  margin: 6px 0 12px;
-  color: var(--gold-light);
-  text-shadow: 0 0 8px rgba(212, 175, 55, 0.75);
-}
-
-.lista {
+.shell {
+  width: min(1060px, 100%);
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 5px;
-  margin-bottom: 14px;
-  list-style: none;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: 18px;
+  align-items: stretch;
 }
 
-.streaming {
-  min-height: 27px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  font-size: 11px;
-  line-height: 1.15;
-  border-radius: 7px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(212,175,55,0.35);
-  color: #fff;
+.panel,
+.checkout {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 0 26px rgba(212, 175, 55, 0.24);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.form-venda {
+.panel {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-input[type="email"] {
-  width: 100%;
-  height: 44px;
-  padding: 0 12px;
-  border-radius: 9px;
-  border: 1px solid var(--gold);
-  background: rgba(0,0,0,0.72);
-  color: #fff;
-  font-size: 15px;
-  outline: none;
-}
-
-input[type="email"]::placeholder {
-  color: #cfcfcf;
-}
-
-input[type="email"]:focus {
-  border-color: var(--gold-light);
-  box-shadow: 0 0 0 2px rgba(212,175,55,0.24);
-}
-
-.btn {
-  width: 100%;
-  height: 46px;
-  border-radius: 9px;
-  border: none;
-  font-size: 13px;
-  font-weight: 800;
-  color: #111;
-  background: linear-gradient(135deg, #d4af37, #fff3b0, #d4af37);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 12px rgba(212,175,55,0.45);
-  text-transform: uppercase;
-  touch-action: manipulation;
-}
-
-.btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 50%;
-  height: 100%;
-  background: rgba(255,255,255,0.42);
-  transform: skewX(-25deg);
-  animation: brilhoBtn 3s ease-in-out infinite;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn:disabled {
-  opacity: 0.8;
-  cursor: wait;
-}
-
-@keyframes brilhoBtn {
-  0% {
-    left: -120%;
-  }
-
-  60%, 100% {
-    left: 130%;
-  }
-}
-
-.aviso-email {
-  margin-top: 10px;
-  font-size: 10px;
-  line-height: 1.35;
-  color: #d0d0d0;
-}
-
-/* CELULAR: NAO SOBE NO PC, AJUSTE SEPARADO */
-@media (max-width: 600px) {
-  body {
-    background-image:
-      linear-gradient(rgba(0,0,0,0.86), rgba(0,0,0,0.94)),
-      url("fundo5.png");
-    background-position: center top;
-    background-size: cover;
-    background-attachment: scroll;
-  }
-
-  .page {
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 20px;
-    padding-bottom: 22px;
-  }
-
-  .container {
-    width: min(92vw, 340px);
-    padding: 15px;
-    background: rgba(0,0,0,0.94);
-    border-radius: 16px;
-    box-shadow: 0 0 14px rgba(212,175,55,0.28);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-
-  .logo {
-    width: 58px;
-  }
-
-  h1 {
-    font-size: 22px;
-    animation: none;
-    text-shadow: 0 0 6px rgba(212,175,55,0.8);
-  }
-
-  .preco {
-    font-size: 34px;
-    text-shadow: 0 0 7px rgba(212,175,55,0.7);
-  }
-
-  .btn::before {
-    animation: none;
-  }
-}
-
-@media (max-height: 700px) and (max-width: 600px) {
-  .page {
-    padding-top: 14px;
-  }
-
-  .container {
-    padding: 13px;
-  }
-
-  .logo {
-    width: 50px;
-  }
-
-  .preco {
-    font-size: 30px;
-    margin-bottom: 9px;
-  }
-
-  .streaming {
-    min-height: 24px;
-    font-size: 10px;
-  }
-
-  input[type="email"],
-  .btn {
-    height: 42px;
-  }
-
-  .aviso-email {
-    font-size: 9px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<main class="page">
-  <section class="container" aria-label="Oferta M7 Store">
-
-    <img src="logo.png" class="logo" alt="Logo M7 Store" loading="eager" decoding="async">
-
-    <h1>M7 STORE</h1>
-
-    <p class="subtitulo">
-      PACOTE COM TODOS OS STREAMING ABAIXO POR APENAS:
-    </p>
-
-    <div class="preco">R$29,90</div>
-
-    <ul class="lista">
-      <li class="streaming">Netflix</li>
-      <li class="streaming">HBO Max</li>
-      <li class="streaming">Disney+</li>
-      <li class="streaming">Prime Video</li>
-      <li class="streaming">Paramount+</li>
-      <li class="streaming">Globoplay</li>
-      <li class="streaming">Premiere</li>
-      <li class="streaming">Sportv</li>
-      <li class="streaming">ESPN</li>
-      <li class="streaming">Apple TV</li>
-    </ul>
-
-    <form class="form-venda" id="meuForm">
-      <input
-        type="email"
-        id="email_cliente"
-        name="email"
-        placeholder="Digite seu melhor e-mail"
-        autocomplete="email"
-        inputmode="email"
-        required
-      >
-
-      <button type="submit" class="btn" id="btnComprar">
-        Comprar agora
-      </button>
-    </form>
-
-    <p class="aviso-email">
-      O acesso será enviado para o e-mail acima. Obs: o login enviado servirá para todos os streaming.
-    </p>
-
-  </section>
-</main>
-
-<script>
-const form = document.getElementById("meuForm");
-const emailInput = document.getElementById("email_cliente");
-const btnComprar = document.getElementById("btnComprar");
-
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const email = emailInput.value.trim();
-
-  if (!email || !emailInput.checkValidity()) {
-    emailInput.focus();
-    alert("Digite um e-mail válido antes de continuar.");
-    return;
-  }
-
-  btnComprar.disabled = true;
-  btnComprar.textContent = "Redirecionando...";
-
-  window.location.href = "https://mpago.la/2Lu7nSJ";
-});
-</script>
-
-</body>
-</html>
