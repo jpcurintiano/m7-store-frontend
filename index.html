@@ -30,7 +30,7 @@ body {
   color: #fff;
 }
 
-/* CONTAINER SLIM - Largura reduzida para mostrar mais o fundo */
+/* CONTAINER SLIM */
 .container {
   width: min(92vw, 310px); 
   background: rgba(0,0,0,0.72);
@@ -48,7 +48,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ANIMAÇÕES ORIGINAIS RESTAURADAS */
+/* ANIMAÇÕES ORIGINAIS */
 @keyframes brilhoTexto {
   0% { text-shadow: 0 0 5px #d4af37; }
   50% { text-shadow: 0 0 15px #ffd966; }
@@ -69,7 +69,6 @@ body {
   animation: pulse 2s infinite;
 }
 
-/* TITULO */
 h1 {
   font-size: 19px;
   color: #d4af37;
@@ -83,7 +82,6 @@ h1 {
   animation: brilhoTexto 4s infinite;
 }
 
-/* PREÇO */
 .preco {
   font-size: 26px;
   font-weight: bold;
@@ -91,7 +89,7 @@ h1 {
   animation: brilhoTexto 1.5s infinite, pulse 1.5s infinite;
 }
 
-/* LISTA COM TODOS OS STREAMINGS */
+/* LISTA */
 .lista {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -107,6 +105,11 @@ h1 {
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(212,175,55,0.3);
   animation: brilhoTexto 4s infinite;
+}
+
+/* AJUSTE ESTÉTICO: ESPN OCUPANDO AS DUAS COLUNAS */
+.espn-destaque {
+  grid-column: span 2;
 }
 
 /* ÁREA DE COMPRA */
@@ -133,7 +136,6 @@ input[type="email"]:focus {
     box-shadow: 0 0 10px rgba(212,175,55,0.5);
 }
 
-/* BOTÃO COM EFEITO SHIMMER */
 .btn {
   width: 100%;
   height: 40px;
@@ -203,10 +205,9 @@ input[type="email"]:focus {
     <li class="streaming">Globoplay</li>
     <li class="streaming">Premiere</li>
     <li class="streaming">Sportv</li>
-    <li class="streaming">ESPN</li>
+    <li class="streaming espn-destaque">ESPN</li> <!-- Classe adicionada aqui -->
   </ul>
 
-  <!-- FORMULÁRIO COM VALIDAÇÃO RECOMENDADA -->
   <form class="form-venda" id="meuForm">
     <input 
         type="email" 
@@ -226,12 +227,8 @@ input[type="email"]:focus {
 <script>
   document.getElementById('meuForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    // Captura o e-mail (fica registrado no navegador)
     const email = document.getElementById('email_cliente').value;
     console.log("Email do cliente:", email);
-
-    // Redireciona para o link de pagamento
     window.location.href = "https://mpago.la/2Lu7nSJ";
   });
 </script>
