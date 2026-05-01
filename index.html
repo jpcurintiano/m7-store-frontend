@@ -3,223 +3,187 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Assine os melhores serviços de streaming na M7 STORE por um preço acessível.">
-    
-    <!-- 🔥 FAVICON -->
     <link rel="icon" type="image/png" href="topo.png">
-
     <title>M7 STORE - Loja de Streaming</title>
 
     <style>
-        /* VARIÁVEIS PARA MANUTENÇÃO FÁCIL */
         :root {
             --primary: #d4af37;
-            --primary-glow: #ffd966;
-            --bg-glass: rgba(0, 0, 0, 0.75);
-            --border-glass: rgba(212, 175, 55, 0.5);
-            --text-main: #ffffff;
-            --text-dim: #cccccc;
+            --bg-glass: rgba(0, 0, 0, 0.6); /* Mais transparente para ver o fundo */
+            --border-glass: rgba(255, 215, 0, 0.3);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
             min-height: 100dvh;
-            /* Gradiente duplo para garantir leitura mesmo se a imagem demorar a carregar */
+            /* Gradiente mais suave para destacar a imagem fundo4.png */
             background: 
-                linear-gradient(var(--bg-glass), rgba(0, 0, 0, 0.85)),
+                linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
                 url("fundo4.png") no-repeat center center;
             background-size: cover;
-            display: grid;
-            place-items: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            color: var(--text-main);
+            color: #fff;
         }
 
-        /* CONTAINER PRINCIPAL (MAIN) */
+        /* CARD REDUZIDO (Para ocupar menos espaço na tela) */
         .card {
-            width: min(100%, 360px);
+            width: 100%;
+            max-width: 310px; /* Largura menor para mostrar mais o fundo */
             background: var(--bg-glass);
             border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            padding: 30px 20px;
+            border-radius: 15px;
+            padding: 20px 15px;
             text-align: center;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
-            animation: entrada 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(5px); /* Blur reduzido para transparência mais límpida */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: subir 0.6s ease-out;
         }
 
-        @keyframes entrada {
-            from { opacity: 0; transform: translateY(30px); }
+        @keyframes subir {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* LOGO */
         .logo {
-            width: 80px;
-            height: auto;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px var(--primary));
+            width: 60px; /* Logo menor */
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 5px var(--primary));
         }
 
-        /* TIPOGRAFIA */
         h1 {
-            font-size: 1.6rem;
+            font-size: 1.2rem;
             color: var(--primary);
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .subtitulo {
-            font-size: 0.9rem;
-            color: var(--text-dim);
             margin-bottom: 15px;
         }
 
         .preco {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 15px 0;
+            font-size: 1.8rem;
+            font-weight: bold;
             display: block;
-            animation: pulse 2s infinite ease-in-out;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); text-shadow: 0 0 10px rgba(212,175,55,0.2); }
-            50% { transform: scale(1.05); text-shadow: 0 0 25px var(--primary-glow); }
-        }
-
-        /* LISTA DE SERVIÇOS (UL/LI) */
-        .servicos-lista {
-            list-style: none;
+        /* LISTA COMPACTA */
+        .lista {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+
+        .item {
+            font-size: 10px;
+            padding: 5px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 5px;
+        }
+
+        /* FORMULÁRIO E INPUTS */
+        .form-compra {
+            display: flex;
+            flex-direction: column;
             gap: 10px;
-            margin: 20px 0;
         }
 
-        .servico-item {
-            padding: 10px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .servico-item:hover {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        /* AVISO */
-        .info-box {
-            font-size: 0.75rem;
-            line-height: 1.5;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            margin-bottom: 25px;
-            color: #aaa;
-        }
-
-        /* BOTÃO DE AÇÃO (CTA) */
-        .btn-compra {
-            display: block;
+        input[type="email"] {
             width: 100%;
-            padding: 18px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--primary);
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+        }
+
+        input[type="email"]:focus {
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
             background: linear-gradient(135deg, var(--primary), #fff3b0, var(--primary));
-            background-size: 200% auto;
             color: #000;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            transition: 0.4s;
-            position: relative;
-            overflow: hidden;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
         }
 
-        .btn-compra:hover {
-            background-position: right center;
-            transform: scale(1.03);
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+        .btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
         }
 
-        /* BRILHO ANIMADO NO BOTÃO */
-        .btn-compra::after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 20%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.4);
-            transform: rotate(30deg);
-            transition: 0s;
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -60%; }
-            20% { left: 120%; }
-            100% { left: 120%; }
-        }
-
-        /* RESPONSIVIDADE */
-        @media (max-width: 380px) {
-            .card { padding: 20px 15px; }
-            .preco { font-size: 2rem; }
-            .servicos-lista { grid-template-columns: 1fr; } /* Empilha em telas muito pequenas */
+        .aviso {
+            font-size: 10px;
+            color: #bbb;
+            margin-top: 10px;
         }
     </style>
 </head>
-
 <body>
 
     <main class="card">
-        <header>
-            <img src="logo.png" class="logo" alt="Logo M7 Store - Especialista em Streaming">
-            <h1>M7 STORE</h1>
-            <p class="subtitulo">Acesso premium ilimitado</p>
-        </header>
+        <img src="logo.png" class="logo" alt="M7 Store">
+        <h1>M7 STORE</h1>
+        
+        <strong class="preco">R$ 29,90</strong>
 
-        <section aria-label="Preço do plano">
-            <strong class="preco">R$ 29,90</strong>
-        </section>
+        <ul class="lista">
+            <li class="item">Netflix</li>
+            <li class="item">HBO Max</li>
+            <li class="item">Disney+</li>
+            <li class="item">Prime Video</li>
+            <li class="item">Globoplay</li>
+            <li class="item">Premiere</li>
+        </ul>
 
-        <section aria-label="Serviços inclusos">
-            <ul class="servicos-lista">
-                <li class="servico-item">Netflix 4K</li>
-                <li class="servico-item">HBO Max</li>
-                <li class="servico-item">Disney+</li>
-                <li class="servico-item">Prime Video</li>
-                <li class="servico-item">Paramount+</li>
-                <li class="servico-item">Globoplay</li>
-                <li class="servico-item">Premiere</li>
-                <li class="servico-item">ESPN & Star+</li>
-            </ul>
-        </section>
+        <!-- VALIDAÇÃO RECOMENDADA: Usando formulário nativo -->
+        <form class="form-compra" id="formPay">
+            <input 
+                type="email" 
+                id="email" 
+                placeholder="Seu melhor e-mail" 
+                required
+            >
+            <button type="submit" class="btn">Comprar Acesso</button>
+        </form>
 
-        <footer class="info-box">
-            <p>Entrega automática via e-mail imediatamente após a aprovação do pagamento pelo Mercado Pago.</p>
-        </footer>
-
-        <a href="https://mpago.la/2Lu7nSJ" class="btn-compra">
-            ADQUIRIR AGORA
-        </a>
+        <p class="aviso">O acesso será enviado ao e-mail digitado.</p>
     </main>
+
+    <script>
+        document.getElementById('formPay').addEventListener('submit', function(e) {
+            // e.preventDefault() impede o envio se o navegador detectar erro no e-mail
+            e.preventDefault();
+            
+            const emailValue = document.getElementById('email').value;
+            
+            // Simulação de "uso" do e-mail (por enquanto fica no console)
+            console.log("E-mail capturado:", emailValue);
+
+            // Redirecionamento após a validação nativa passar
+            window.location.href = "https://mpago.la/2Lu7nSJ";
+        });
+    </script>
 
 </body>
 </html>
