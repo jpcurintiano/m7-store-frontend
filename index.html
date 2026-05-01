@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>M7 STORE</title>
 
 <style>
@@ -14,8 +14,10 @@
 }
 
 body {
-  min-height: 100vh;
-  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url("fundo.png");
+  min-height: 100dvh;
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+    url("fundo.png");
   background-size: cover;
   background-position: center;
   display: grid;
@@ -24,20 +26,43 @@ body {
   color: #fff;
 }
 
+/* CONTAINER */
 .container {
-  width: min(92vw, 340px);
+  width: min(92vw, 350px);
   background: rgba(0,0,0,0.75);
-  border: 1px solid #d4af37;
+  border: 1px solid rgba(255,215,0,0.6);
   border-radius: 18px;
   padding: 12px;
   text-align: center;
-  box-shadow: 0 0 25px rgba(212,175,55,0.3);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 28px rgba(212,175,55,0.35);
+  animation: subir 0.6s ease;
+}
+
+@keyframes subir {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ANIMAÇÃO TEXTO */
+@keyframes brilhoTexto {
+  0% { text-shadow: 0 0 5px #d4af37; }
+  50% { text-shadow: 0 0 15px #ffd966; }
+  100% { text-shadow: 0 0 5px #d4af37; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 /* LOGO */
 .logo {
   width: 70px;
   margin-bottom: 6px;
+  filter: drop-shadow(0 0 10px gold);
+  animation: pulse 2s infinite;
 }
 
 /* TITULO */
@@ -45,19 +70,22 @@ h1 {
   font-size: 22px;
   color: #d4af37;
   margin-bottom: 4px;
+  animation: brilhoTexto 2s infinite;
 }
 
 /* TEXTO */
 .subtitulo {
   font-size: 12.5px;
   margin-bottom: 6px;
+  animation: brilhoTexto 4s infinite;
 }
 
 /* PREÇO */
 .preco {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: bold;
   margin: 6px 0;
+  animation: brilhoTexto 1.5s infinite, pulse 1.5s infinite;
 }
 
 /* STREAMINGS */
@@ -74,6 +102,15 @@ h1 {
   border-radius: 8px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(212,175,55,0.4);
+  cursor: pointer;
+  transition: 0.2s;
+  animation: brilhoTexto 4s infinite;
+}
+
+.streaming:hover {
+  transform: scale(1.05);
+  background: rgba(212,175,55,0.15);
+  box-shadow: 0 0 12px gold;
 }
 
 /* AVISO */
@@ -84,6 +121,7 @@ h1 {
   background: rgba(0,0,0,0.7);
   border: 1px solid rgba(255,215,0,0.4);
   margin-bottom: 7px;
+  animation: brilhoTexto 5s infinite;
 }
 
 /* AREA COMPRA */
@@ -92,7 +130,7 @@ h1 {
   gap: 6px;
 }
 
-/* INPUT */
+/* INPUT (SEM ANIMAÇÃO) */
 input {
   width: 65%;
   height: 42px;
@@ -101,6 +139,7 @@ input {
   border: 1px solid #d4af37;
   background: rgba(0,0,0,0.7);
   color: #fff;
+  outline: none;
 }
 
 /* BOTÃO */
@@ -113,10 +152,37 @@ input {
   font-weight: bold;
   background: linear-gradient(135deg,#d4af37,#fff3b0,#d4af37);
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(212,175,55,0.5);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px gold;
 }
 
 .btn:active {
   transform: scale(0.95);
+}
+
+/* brilho passando no botão */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: rgba(255,255,255,0.4);
+  transform: skewX(-25deg);
+  animation: brilhoBtn 2s infinite;
+}
+
+@keyframes brilhoBtn {
+  0% { left: -120%; }
+  60% { left: 130%; }
+  100% { left: 130%; }
 }
 
 /* MOBILE */
@@ -177,7 +243,7 @@ function comprar() {
     return;
   }
 
-  // 🔥 REDIRECIONA DIRETO (SEM API)
+  // 🔥 REDIRECIONA DIRETO
   window.location.href = "https://mpago.la/2Lu7nSJ";
 }
 </script>
